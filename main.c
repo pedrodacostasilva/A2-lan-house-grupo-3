@@ -46,7 +46,16 @@ int totalComputadores = 0;
 // Autor: Pedro Henrique da Costa Silva
 // ---------------------------------------------------
 
+struct Produto {
+    int id;
+    char nome[50];
+    float preco;
+    int quantidade;
+    int ativo;
+};
 
+struct Produto produtos[50];
+int totalProdutos = 0;
 
 // ---------------------------------------------------
 // STRUCT 4 - SESSOES E RELATORIOS
@@ -156,9 +165,44 @@ void moduloComputadores() {
 // Autor: Pedro Henrique da Costa Silva
 // ===================================================
 
+
 void moduloProdutos() {
-    printf("\nModulo de Produtos - Em desenvolvimento\n");
+    int opcao;
+
+    do {
+        printf("\n===== PRODUTOS E ESTOQUE =====\n");
+        printf("1 - Cadastrar produto\n");
+        printf("2 - Listar / Buscar produtos\n");
+        printf("3 - Editar produto ou estoque\n");
+        printf("4 - Remover produto\n");
+        printf("0 - Voltar\n");
+
+        printf("Escolha: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                printf("Cadastro em desenvolvimento.\n");
+                break;
+            case 2:
+                printf("Consulta em desenvolvimento.\n");
+                break;
+            case 3:
+                printf("Edicao em desenvolvimento.\n");
+                break;
+            case 4:
+                printf("Remocao em desenvolvimento.\n");
+                break;
+            case 0:
+                printf("Voltando ao menu principal.\n");
+                break;
+            default:
+                printf("Opcao invalida!\n");
+        }
+
+    } while (opcao != 0);
 }
+
 
 
 // ===================================================
@@ -166,8 +210,6 @@ void moduloProdutos() {
 // Autor: Lucas Henrique Santos Pedrette
 // ===================================================
 
-// adicionado por Lucas Henrique Santos Pedrette RGM: 49670981
-// Modulo: Sessoes e Relatorios
 
 void moduloSessoes() {
 
