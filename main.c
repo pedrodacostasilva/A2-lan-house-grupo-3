@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 
 // ===================================================
@@ -33,6 +32,15 @@ int totalClientes = 0;
 // ---------------------------------------------------
 
 // Adicionar aqui a struct
+struct Computador{
+    int id;
+    char nome[50];
+    float precoHora;
+    int disponivel;
+    int ativo;
+};
+struct Computador computadores[50];
+int totalComputadores = 0;
 
 
 // ---------------------------------------------------
@@ -103,6 +111,36 @@ void moduloClientes() {
 
 void moduloComputadores() {
     printf("\nModulo de Computadores - Em desenvolvimento\n");
+     int opcao;
+    do{
+    printf("\n===== COMPUTADORES =====\n");
+    printf("1 - Cadastrar computador\n");
+    printf("2 - Listar / Buscar computadores\n");
+    printf("3 - Editar computador\n");
+    printf("4 - Remover computador\n");
+    printf("0 - Voltar\n");
+    printf("Escolha: ");
+    scanf("%d", &opcao);
+        switch (opcao) {
+            case 1:
+            printf("Cadastro em desenvolvimento.\n");
+            break;
+            case 2:
+            printf("Consulta em desenvolvimento.\n");
+            break;
+            case 3:
+            printf("Edicao em desenvolvimento.\n");
+            break;
+            case 4:
+            printf("Remocao em desenvolvimento.\n");
+            break;
+            case 0:
+            printf("Voltando ao menu principal.\n");
+            break;
+            default:
+                printf("Opcao invalida!\n");
+        }
+    }while (opcao != 0);
 }
 
 
