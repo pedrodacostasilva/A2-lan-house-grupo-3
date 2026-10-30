@@ -17,7 +17,15 @@
 // ---------------------------------------------------
 
 // Adicionar aqui a struct
-
+struct Cliente {
+    int id;
+    char nome[50];
+    char telefone[20];
+    float saldo;
+    int ativo;
+};
+struct Cliente clientes[50];
+int totalClientes = 0;
 
 // ---------------------------------------------------
 // STRUCT 2 - COMPUTADORES
@@ -55,7 +63,36 @@
 // ===================================================
 
 void moduloClientes() {
-    printf("\nModulo de Clientes - Em desenvolvimento\n");
+    int opcao;
+    do {
+        printf("\n===== CLIENTES =====\n");
+        printf("1 - Cadastrar cliente\n");
+        printf("2 - Listar / Buscar clientes\n");
+        printf("3 - Editar cliente\n");
+        printf("4 - Remover cliente\n");
+        printf("0 - Voltar\n");
+        printf("Escolha: ");
+        scanf("%d", &opcao);
+        switch (opcao) {
+            case 1:
+                printf("Cadastro em desenvolvimento.\n");
+                break;
+            case 2:
+                printf("Consulta em desenvolvimento.\n");
+                break;
+            case 3:
+                printf("Edicao em desenvolvimento.\n");
+                break;
+            case 4:
+                printf("Remocao em desenvolvimento.\n");
+                break;
+            case 0:
+                printf("Voltando ao menu principal.\n");
+                break;
+            default:
+                printf("Opcao invalida!\n");
+        }
+    } while (opcao != 0);
 }
 
 
