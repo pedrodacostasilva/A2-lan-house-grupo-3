@@ -1,346 +1,156 @@
-#include <stdio.h>
-
 // ===================================================
 // GRUPO 3 - LAN HOUSE / CYBER CAFE ANOS 2000
 // ===================================================
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
 
-// ===================================================
-// PARTE 1 - STRUCTS E VETORES GLOBAIS
-// ===================================================
+#define MAX_REGISTROS 50
 
-
-// ---------------------------------------------------
-// STRUCT 1 - CLIENTES
-// Autor: Miguel Otavio Parreira Medeiros De Oliveira
-// ---------------------------------------------------
-
-struct Cliente {
-    int id;
-    char nome[50];
-    char telefone[20];
-    float saldo;
-    int ativo;
-};
-struct Cliente clientes[50];
-int totalClientes = 0;
-
-// ---------------------------------------------------
-// STRUCT 2 - COMPUTADORES
-// Autor: Gabriel Bandeira Leopoldo
-// ---------------------------------------------------
-
-struct Computador{
-    int id;
-    char nome[50];
-    float precoHora;
-    int disponivel;
-    int ativo;
-};
-struct Computador computadores[50];
-int totalComputadores = 0;
-
-
-// ---------------------------------------------------
-// STRUCT 3 - PRODUTOS E ESTOQUE
-// Autor: Pedro Henrique da Costa Silva
-// ---------------------------------------------------
-
-struct Produto {
-    int id;
-    char nome[50];
-    float preco;
-    int quantidade;
-    int ativo;
-};
-
-struct Produto produtos[50];
-int totalProdutos = 0;
-
-// ---------------------------------------------------
-// STRUCT 4 - SESSOES E RELATORIOS
-// Autor: Lucas Henrique Santos Pedrette
-// ---------------------------------------------------
-
-struct Sessao {
-    int id;
-    int idCliente;
-    int idComputador;
-    char data[11];
-    float horas;
-    float valorTotal;
-    int ativo;
-};
-
-
-struct Sessao sessoes[50];
-int totalSessoes = 0;
-
-// ===================================================
-// PARTE 2 - FUNCOES
-// ===================================================
-
-
-// ===================================================
-// MODULO 1 - CLIENTES
-// Autor: Miguel Otavio Parreira Medeiros De Oliveira
-// ===================================================
-
-void moduloClientes() {
-    int opcao;
+// FUNCOES DE APOIO
+int limparEntrada(void) {
+    int caractere, sobrou = 0;
     do {
-        printf("\n===== CLIENTES =====\n");
-        printf("1 - Cadastrar cliente\n");
-        printf("2 - Listar / Buscar clientes\n");
-        printf("3 - Editar cliente\n");
-        printf("4 - Remover cliente\n");
-        printf("0 - Voltar\n");
-        printf("Escolha: ");
-        scanf("%d", &opcao);
-        switch (opcao) {
-            case 1:
-                printf("Cadastro em desenvolvimento.\n");
-                break;
-            case 2:
-                printf("Consulta em desenvolvimento.\n");
-                break;
-            case 3:
-                printf("Edicao em desenvolvimento.\n");
-                break;
-            case 4:
-                printf("Remocao em desenvolvimento.\n");
-                break;
-            case 0:
-                printf("Voltando ao menu principal.\n");
-                break;
-            default:
-                printf("Opcao invalida!\n");
-        }
-    } while (opcao != 0);
+        caractere = getchar();
+        if (caractere != '\n' && caractere != EOF &&
+            caractere != ' ' && caractere != '\t' && caractere != '\r') sobrou = 1;
+    } while (caractere != '\n' && caractere != EOF);
+    return sobrou;
 }
 
-
-// ===================================================
-// MODULO 2 - COMPUTADORES
-// Autor: Gabriel Bandeira Leopoldo
-// ===================================================
-
-void moduloComputadores() {
-    printf("\nModulo de Computadores - Em desenvolvimento\n");
-     int opcao;
-    do{
-    printf("\n===== COMPUTADORES =====\n");
-    printf("1 - Cadastrar computador\n");
-    printf("2 - Listar / Buscar computadores\n");
-    printf("3 - Editar computador\n");
-    printf("4 - Remover computador\n");
-    printf("0 - Voltar\n");
-    printf("Escolha: ");
-    scanf("%d", &opcao);
-        switch (opcao) {
-            case 1:
-            printf("Cadastro em desenvolvimento.\n");
-            break;
-            case 2:
-            printf("Consulta em desenvolvimento.\n");
-            break;
-            case 3:
-            printf("Edicao em desenvolvimento.\n");
-            break;
-            case 4:
-            printf("Remocao em desenvolvimento.\n");
-            break;
-            case 0:
-            printf("Voltando ao menu principal.\n");
-            break;
-            default:
-                printf("Opcao invalida!\n");
-        }
-    }while (opcao != 0);
+void limparTela(void) {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
 }
 
-
-// ===================================================
-// MODULO 3 - PRODUTOS E ESTOQUE
-// Autor: Pedro Henrique da Costa Silva
-// ===================================================
-
-
-void moduloProdutos() {
-    int opcao;
-
-    do {
-        printf("\n===== PRODUTOS E ESTOQUE =====\n");
-        printf("1 - Cadastrar produto\n");
-        printf("2 - Listar / Buscar produtos\n");
-        printf("3 - Editar produto ou estoque\n");
-        printf("4 - Remover produto\n");
-        printf("0 - Voltar\n");
-
-        printf("Escolha: ");
-        scanf("%d", &opcao);
-
-        switch (opcao) {
-            case 1:
-                printf("Cadastro em desenvolvimento.\n");
-                break;
-            case 2:
-                printf("Consulta em desenvolvimento.\n");
-                break;
-            case 3:
-                printf("Edicao em desenvolvimento.\n");
-                break;
-            case 4:
-                printf("Remocao em desenvolvimento.\n");
-                break;
-            case 0:
-                printf("Voltando ao menu principal.\n");
-                break;
-            default:
-                printf("Opcao invalida!\n");
-        }
-
-    } while (opcao != 0);
+void pausar(void) {
+    printf("\nPressione ENTER para continuar...");
+    getchar();
 }
 
-
-
-// ===================================================
-// MODULO 4 - SESSOES E RELATORIOS
-// Autor: Lucas Henrique Santos Pedrette
-// ===================================================
-
-
-void moduloSessoes() {
-
-
-    int opcao;
-
-
-    do {
-        printf("\n===== SESSOES E RELATORIOS =====\n");
-        printf("1 - Registrar nova sessao\n");
-        printf("2 - Listar / Buscar sessoes\n");
-        printf("3 - Editar sessao\n");
-        printf("4 - Cancelar / Remover sessao\n");
-        printf("5 - Relatorio de computadores mais usados\n");
-        printf("6 - Relatorio de clientes mais frequentes\n");
-        printf("7 - Relatorio de faturamento\n");
-        printf("0 - Voltar ao menu principal\n");
-
-
-        printf("Escolha uma opcao: ");
-        scanf("%d", &opcao);
-
-
-        switch (opcao) {
-
-
-            case 1:
-                printf("\nRegistrar nova sessao\n");
-                printf("Em construcao...\n");
-                printf("Dados: ID, cliente, computador, data e horas.\n");
-                break;
-
-
-            case 2:
-                printf("\nHistorico de sessoes\n");
-                printf("Em construcao...\n");
-                break;
-
-
-            case 3:
-                printf("\nEditar sessao\n");
-                printf("Em construcao...\n");
-                break;
-
-
-            case 4:
-                printf("\nCancelar sessao\n");
-                printf("Em construcao...\n");
-                break;
-
-
-            case 5:
-                printf("\nComputadores mais utilizados\n");
-                printf("Em construcao...\n");
-                break;
-
-
-            case 6:
-                printf("\nClientes mais frequentes\n");
-                printf("Em construcao...\n");
-                break;
-
-
-            case 7:
-                printf("\nFaturamento da Lan House\n");
-                printf("Em construcao...\n");
-                break;
-
-
-            case 0:
-                printf("\nVoltando ao menu principal...\n");
-                break;
-
-
-            default:
-                printf("\nOpcao invalida!\n");
-        }
-
-
-    } while (opcao != 0);
+float arredondarValor(float valor) {
+    int centavos = (int)(valor * 100.0f + 0.5f);
+    return centavos / 100.0f;
 }
-// ===================================================
-// PARTE 3 - MENU PRINCIPAL
-// Responsabilidade: Integracao do Grupo 3
-// ===================================================
 
-int main() {
+int lerInteiro(const char mensagem[], int minimo, int maximo) {
+    int numero, lidos, sobrou;
+    do {
+        printf("%s", mensagem);
+        lidos = scanf("%9d", &numero);
+        if (lidos == EOF) exit(0);
+        sobrou = limparEntrada();
+        if (lidos == 1 && !sobrou && numero >= minimo && numero <= maximo) return numero;
+        printf("Digite um inteiro entre %d e %d.\n", minimo, maximo);
+    } while (1);
+}
 
+float lerReal(const char mensagem[], float minimo, float maximo) {
+    float numero;
+    int lidos, sobrou;
+    do {
+        printf("%s", mensagem);
+        lidos = scanf("%f", &numero);
+        if (lidos == EOF) exit(0);
+        sobrou = limparEntrada();
+        if (lidos == 1 && !sobrou && numero >= minimo && numero <= maximo)
+            return arredondarValor(numero);
+        printf("Digite um numero entre %.2f e %.2f. Use ponto decimal.\n", minimo, maximo);
+    } while (1);
+}
+
+void lerTexto(const char mensagem[], char destino[], int tamanho) {
+    char texto[50];
+    int lidos, sobrou, temSeparador, i;
+    do {
+        printf("%s", mensagem);
+
+        lidos = scanf(" %49[^\n]", texto);
+        if (lidos == EOF) exit(0);
+        sobrou = limparEntrada();
+        if (lidos != 1) continue;
+        if (sobrou || (int)strlen(texto) >= tamanho) {
+            printf("Texto muito longo. Tente novamente.\n");
+        } else {
+            temSeparador = 0;
+            for (i = 0; texto[i] != '\0'; i++) {
+                if (texto[i] == ';') temSeparador = 1;
+            }
+            if (temSeparador) printf("Preencha o texto sem ponto e virgula (;).\n");
+            else { strcpy(destino, texto); return; }
+        }
+    } while (1);
+}
+
+int dataValida(const char data[]) {
+    int i, dia, mes, ano;
+    int diasMes[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
+    if (strlen(data) != 10 || data[2] != '/' || data[5] != '/') return 0;
+    for (i = 0; i < 10; i++) {
+        if (i != 2 && i != 5 && (data[i] < '0' || data[i] > '9')) return 0;
+    }
+
+    dia = (data[0] - '0') * 10 + data[1] - '0';
+    mes = (data[3] - '0') * 10 + data[4] - '0';
+    ano = (data[6] - '0') * 1000 + (data[7] - '0') * 100 +
+          (data[8] - '0') * 10 + data[9] - '0';
+    if (ano < 1900 || ano > 2100 || mes < 1 || mes > 12) return 0;
+    if ((ano % 4 == 0 && ano % 100 != 0) || ano % 400 == 0) diasMes[1] = 29;
+    return dia >= 1 && dia <= diasMes[mes - 1];
+}
+
+void lerData(char data[]) {
+    do {
+        lerTexto("Data (DD/MM/AAAA): ", data, 11);
+        if (dataValida(data)) return;
+        printf("Data invalida.\n");
+    } while (1);
+}
+
+// PROTOTIPOS
+int clienteTemSessaoAberta(int id);
+int computadorTemSessaoAberta(int id);
+
+// MODULOS
+#include "clientes.h"
+#include "computadores.h"
+#include "produtos.h"
+#include "sessoes.h"
+
+// MENU PRINCIPAL
+int main(void) {
     int opcao;
 
+    setlocale(LC_CTYPE, "Portuguese");
+    if (!carregarClientesCSV() || !carregarComputadoresCSV() ||
+        !carregarProdutosCSV() || !carregarSessoesCSV() || !validarRelacionamentos()) {
+        printf("Inicializacao interrompida. Corrija os CSVs; os dados nao serao regravados.\n");
+        return 1;
+    }
     do {
+        limparTela();
         printf("\n==================================\n");
-        printf("        LAN HOUSE ANOS 2000       \n");
+        printf("        LAN HOUSE ANOS 2000\n");
         printf("==================================\n");
-
-        printf("1 - Clientes\n");
-        printf("2 - Computadores\n");
-        printf("3 - Produtos e Estoque\n");
-        printf("4 - Sessoes e Relatorios\n");
-        printf("0 - Sair\n");
-
-        printf("\nEscolha uma opcao: ");
-        scanf("%d", &opcao);
+        printf("1 - Clientes\n2 - Computadores\n3 - Produtos e Estoque\n4 - Sessoes e Relatorios\n0 - Salvar e sair\n");
+        opcao = lerInteiro("Escolha: ", 0, 4);
 
         switch (opcao) {
+            case 1: moduloClientes(); break;
+            case 2: moduloComputadores(); break;
+            case 3: moduloProdutos(); break;
 
-            case 1:
-                moduloClientes();
-                break;
-
-            case 2:
-                moduloComputadores();
-                break;
-
-            case 3:
-                moduloProdutos();
-                break;
-
-            case 4:
-                moduloSessoes();
-                break;
-
-            case 0:
-                printf("\nEncerrando o sistema...\n");
-                break;
-
-            default:
-                printf("\nOpcao invalida!\n");
+            case 4: moduloSessoes();
         }
-
     } while (opcao != 0);
 
+    if (!salvarClientesCSV() || !salvarComputadoresCSV() ||
+        !salvarProdutosCSV() || !salvarSessoesCSV()) return 1;
+    printf("Dados salvos. Ate logo!\n");
     return 0;
 }
