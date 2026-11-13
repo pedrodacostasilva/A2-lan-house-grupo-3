@@ -22,7 +22,8 @@ int totalProdutos = 0;
 
 // FUNCOES
 int buscarIndiceProduto(int id) {
-    for (int i = 0; i < totalProdutos; i++) {
+    int i;
+    for (i = 0; i < totalProdutos; i++) {
         if (produtos[i].id == id) return i;
     }
     return -1;
@@ -30,10 +31,11 @@ int buscarIndiceProduto(int id) {
 
 // Regrava os registros do vetor no arquivo CSV.
 int salvarProdutosCSV(void) {
+    int i;
     FILE *arq = fopen("produtos.csv", "w");
     int ok = 1;
     if (arq == NULL) { printf("[ERRO] Nao foi possivel abrir produtos.csv para salvar.\n"); return 0; }
-    for (int i = 0; i < totalProdutos; i++) {
+    for (i = 0; i < totalProdutos; i++) {
         if (fprintf(arq, "%d;%s;%.2f;%d;%d\n", produtos[i].id, produtos[i].nome, produtos[i].preco, produtos[i].quantidade, produtos[i].ativo) < 0) ok = 0;
     }
     if (fclose(arq) != 0) ok = 0;
@@ -92,14 +94,16 @@ void cadastrarProduto(void) {
 }
 
 void listarProdutos(void) {
+    int i;
     int encontrados = 0;
-    for (int i = 0; i < totalProdutos; i++) {
+    for (i = 0; i < totalProdutos; i++) {
         if (produtos[i].ativo) { mostrarProduto(i); encontrados++; }
     }
     if (!encontrados) printf("Nenhum registro ativo.\n");
 }
 
 void buscarProdutos(void) {
+    int i;
     int modo = lerInteiro("1 - Por ID | 2 - Por parte do nome: ", 1, 2);
     int pos, encontrados = 0;
     char termo[50];
@@ -108,7 +112,7 @@ void buscarProdutos(void) {
         if (pos >= 0 && produtos[pos].ativo) { mostrarProduto(pos); return; }
     } else {
         lerTexto("Trecho do nome (respeite maiusculas): ", termo, sizeof(termo));
-        for (int i = 0; i < totalProdutos; i++) {
+        for (i = 0; i < totalProdutos; i++) {
             if (produtos[i].ativo && strstr(produtos[i].nome, termo) != NULL) {
                 mostrarProduto(i); encontrados++;
             }

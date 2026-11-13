@@ -21,7 +21,8 @@ int totalComputadores = 0;
 
 // FUNCOES
 int buscarIndiceComputador(int id) {
-    for (int i = 0; i < totalComputadores; i++) {
+    int i;
+    for (i = 0; i < totalComputadores; i++) {
         if (computadores[i].id == id) return i;
     }
     return -1;
@@ -29,10 +30,11 @@ int buscarIndiceComputador(int id) {
 
 // Regrava os registros do vetor no arquivo CSV.
 int salvarComputadoresCSV(void) {
+    int i;
     FILE *arq = fopen("computadores.csv", "w");
     int ok = 1;
     if (arq == NULL) { printf("[ERRO] Nao foi possivel abrir computadores.csv para salvar.\n"); return 0; }
-    for (int i = 0; i < totalComputadores; i++) {
+    for (i = 0; i < totalComputadores; i++) {
         if (fprintf(arq, "%d;%s;%.2f;%d;%d\n", computadores[i].id, computadores[i].nome, computadores[i].precoHora, computadores[i].disponivel, computadores[i].ativo) < 0) ok = 0;
     }
     if (fclose(arq) != 0) ok = 0;
@@ -91,14 +93,16 @@ void cadastrarComputador(void) {
 }
 
 void listarComputadores(void) {
+    int i;
     int encontrados = 0;
-    for (int i = 0; i < totalComputadores; i++) {
+    for (i = 0; i < totalComputadores; i++) {
         if (computadores[i].ativo) { mostrarComputador(i); encontrados++; }
     }
     if (!encontrados) printf("Nenhum registro ativo.\n");
 }
 
 void buscarComputadores(void) {
+    int i;
     int modo = lerInteiro("1 - Por ID | 2 - Por parte do nome: ", 1, 2);
     int pos, encontrados = 0;
     char termo[50];
@@ -107,7 +111,7 @@ void buscarComputadores(void) {
         if (pos >= 0 && computadores[pos].ativo) { mostrarComputador(pos); return; }
     } else {
         lerTexto("Trecho do nome (respeite maiusculas): ", termo, sizeof(termo));
-        for (int i = 0; i < totalComputadores; i++) {
+        for (i = 0; i < totalComputadores; i++) {
             if (computadores[i].ativo && strstr(computadores[i].nome, termo) != NULL) {
                 mostrarComputador(i); encontrados++;
             }
